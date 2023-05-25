@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import CustomButton from '@/components/Button/CustomButton';
-import { useNoteContext } from '@/context/NoteContext';
+import { useMContext } from '@/context/MainContext';
 
 const schema = z.object({
 	title: z
@@ -25,7 +25,7 @@ const CreateNotePage: NextPage = () => {
 		formState: { errors },
 	} = useForm({ resolver: zodResolver(schema) });
 
-	const { noteCtx } = useNoteContext();
+	const { noteCtx } = useMContext();
 	const { createNote } = noteCtx;
 
 	const onSubmit = handleSubmit(async (data) => {

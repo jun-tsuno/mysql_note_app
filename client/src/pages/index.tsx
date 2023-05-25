@@ -1,42 +1,20 @@
-import { Fragment, useEffect } from 'react';
 import { NextPage } from 'next';
-import Layout from '@/components/Layout';
-import { Note } from '@/types/noteTypes';
-import Card from '@/components/Card/Card';
-import { useNoteContext } from '@/context/NoteContext';
-import EmptyIcon from '@/public/svgIcons/EmptyIcon';
+import { useSession, signIn } from 'next-auth/react';
+import { useRouter } from 'next/router';
 
-const HomePage: NextPage = () => {
-	const { noteCtx } = useNoteContext();
-	const { noteList, getNoteList } = noteCtx;
+const TopPage: NextPage = () => {
+	const { data: session } = useSession();
+	const router = useRouter();
 
-	useEffect(() => {
-		getNoteList();
-	}, [getNoteList]);
+	if (session) {
+		router.push('/dashboard');
+	}
 
 	return (
 		<>
-			<Layout>
-				<h1 className='py-5'>Notes</h1>
-				<div className='flex flex-wrap gap-y-3'>
-					{noteList &&
-						noteList.map((note: Note) => {
-							return (
-								<Fragment key={note.id}>
-									<Card note={note} />
-								</Fragment>
-							);
-						})}
-				</div>
-				{noteList && noteList.length < 1 && (
-					<div className='flex flex-col items-center mt-20'>
-						<EmptyIcon width={100} height={100} />
-						<p className='text-secondary-dark-gray-2'>You do not have a note</p>
-					</div>
-				)}
-			</Layout>
+			<button onClick={() => signIn()}>Get Started</button>
 		</>
 	);
 };
 
-export default HomePage;
+export default TopPage;

@@ -1,4 +1,3 @@
-'use client';
 import { Disclosure } from '@headlessui/react';
 import BurgerIcon from '@/public/svgIcons/BurgerIcon';
 import CrossIcon from '@/public/svgIcons/CrossIcon';
@@ -6,12 +5,17 @@ import NoteIcon from '@/public/svgIcons/NoteIcon';
 import FlagIcon from '@/public/svgIcons/FlagIcon';
 import Link from 'next/link';
 import AddButton from './AddButton';
+import { signOut } from 'next-auth/react';
 
 const navigation = [
-	{ name: 'Notes', href: '/', icon: <NoteIcon width={20} height={20} /> },
+	{
+		name: 'Notes',
+		href: '/dashboard',
+		icon: <NoteIcon width={20} height={20} />,
+	},
 	{
 		name: 'Flagged',
-		href: '/flagged',
+		href: '/dashboard/flagged',
 		icon: <FlagIcon width={20} height={20} />,
 	},
 ];
@@ -31,7 +35,7 @@ const Navbar = () => {
 						<>
 							<div className='hidden md:block'>
 								<div className='ml-20 pt-14 pb-8'>
-									<Link href='/create-note'>
+									<Link href='/dashboard/create-note'>
 										<AddButton iWidth={20} iHeight={20} />
 									</Link>
 								</div>
@@ -52,10 +56,11 @@ const Navbar = () => {
 										</Link>
 									))}
 								</div>
+								<button onClick={() => signOut()}>SignOut</button>
 							</div>
 
+							{/* Mobile menu button */}
 							<div className='absolute top-2 left-4 md:hidden z-20'>
-								{/* Mobile menu button */}
 								<Disclosure.Button className='inline-flex items-center justify-center rounded-md p-2 hover:bg-secondary-gray'>
 									{open ? (
 										<CrossIcon width={25} />
@@ -67,7 +72,7 @@ const Navbar = () => {
 
 							<Disclosure.Panel className='relative pt-16 bg-white  h-[100vh] w-[70vw] sm:w-[40vw] md:hidden z-10'>
 								<div className='ml-20 pt-8 pb-4'>
-									<Link href='/create-note'>
+									<Link href='/dashboard/create-note'>
 										<AddButton iWidth={20} iHeight={20} />
 									</Link>
 								</div>
@@ -88,6 +93,7 @@ const Navbar = () => {
 										</Link>
 									))}
 								</div>
+								<button onClick={() => signOut()}>SignOut</button>
 							</Disclosure.Panel>
 							{open && (
 								<div className='max-md:absolute max-md:top-0 max-md:bg-black/50 max-md:w-[100vw] max-md:h-[100vh]' />

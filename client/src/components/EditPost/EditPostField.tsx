@@ -5,7 +5,7 @@ import * as z from 'zod';
 import { Dispatch, SetStateAction } from 'react';
 import CustomButton from '../Button/CustomButton';
 import SendIcon from '@/public/svgIcons/SendIcon';
-import { useNoteContext } from '@/context/NoteContext';
+import { useMContext } from '@/context/MainContext';
 
 interface EditPostField {
 	noteId: string;
@@ -31,7 +31,7 @@ const EditPostField = ({
 	description,
 	setIsEdit,
 }: EditPostField) => {
-	const { noteCtx } = useNoteContext();
+	const { noteCtx } = useMContext();
 	const { editNote, getNote } = noteCtx;
 
 	const {

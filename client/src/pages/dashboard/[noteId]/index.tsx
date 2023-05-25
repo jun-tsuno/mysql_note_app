@@ -1,16 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Layout from '@/components/Layout';
-import { useParams } from 'next/navigation';
 import CustomButton from '@/components/Button/CustomButton';
 import TrashIcon from '@/public/svgIcons/TrashIcon';
 import PencilIcon from '@/public/svgIcons/PencilIcon';
 import CustomModal from '@/components/Modal/CustomModal';
-import { useNoteContext } from '@/context/NoteContext';
+import { useMContext } from '@/context/MainContext';
 import EditPostField from '@/components/EditPost/EditPostField';
 
 const NotePage = () => {
-	const { noteCtx } = useNoteContext();
+	const { noteCtx } = useMContext();
 	const { note, getNote, deleteNote } = noteCtx;
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const [isEdit, setIsEdit] = useState<boolean>(false);
