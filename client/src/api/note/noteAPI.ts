@@ -1,4 +1,3 @@
-import { log } from 'console';
 import { api } from '../api';
 
 export const getNotesAPI = async () => {

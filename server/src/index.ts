@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import { connectDb } from './config/db';
 import noteRouters from './routers/noteRouters';
+import authRouters from './routers/authRoutes';
 
 dotenv.config();
 
@@ -16,6 +17,7 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/api/notes', noteRouters);
+app.use('/api/auth', authRouters);
 
 const port = process.env.PORT || 8000;
 
