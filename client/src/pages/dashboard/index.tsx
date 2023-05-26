@@ -6,20 +6,27 @@ import Card from '@/components/Card/Card';
 import { useMContext } from '@/context/MainContext';
 import EmptyIcon from '@/public/svgIcons/EmptyIcon';
 import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
 import { User } from '@/types/userTypes';
 
 const HomePage: NextPage = () => {
+	const { data: session, status } = useSession();
 	const { noteCtx, authCtx } = useMContext();
 	const { noteList, getNoteList } = noteCtx;
 	const { userSignIn } = authCtx;
-	const { data: session } = useSession();
+	const router = useRouter();
 
 	useEffect(() => {
-		if (session?.user) {
-			userSignIn(session.user as User);
+		if (status === 'unauthenticated') {
+			router.push('/');
 		}
-		getNoteList();
-	}, [getNoteList, session, userSignIn]);
+		if (status === 'authenticated') {
+			console.log(session.user);
+
+			userSignIn(session.user);
+			getNoteList(session.user.id);
+		}
+	}, [getNoteList, session, router, status, userSignIn]);
 
 	return (
 		<>

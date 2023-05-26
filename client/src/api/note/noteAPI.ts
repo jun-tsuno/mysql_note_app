@@ -1,8 +1,8 @@
 import { api } from '../api';
 
-export const getNotesAPI = async () => {
+export const getNotesAPI = async (userId: string) => {
 	try {
-		const { data } = await api.get('/api/notes');
+		const { data } = await api.put(`/api/notes/all-notes/${userId}`);
 		return data;
 	} catch (error) {
 		console.log(error);

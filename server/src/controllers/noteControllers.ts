@@ -2,11 +2,13 @@ import { Request, Response } from 'express';
 import { db } from '../config/db';
 
 export const getNotes = (req: Request, res: Response) => {
-	const sqlSelectNotes = 'SELECT * FROM notes';
-	db.query(sqlSelectNotes, (err, result) => {
+	const { userId } = req.params;
+
+	const sqlSelectNotes = 'SELECT * FROM notes WHERE user_id = ?';
+	db.query(sqlSelectNotes, userId, (err, result) => {
 		if (err) {
 			console.log(err);
-			return res.status(400).json({ message: 'Fail to fetch data' });
+			return res.status(400).json({ message: 'Fail to fetch notes' });
 		}
 		return res.status(200).json(result);
 	});

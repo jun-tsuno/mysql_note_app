@@ -5,7 +5,7 @@ import NoteIcon from '@/public/svgIcons/NoteIcon';
 import FlagIcon from '@/public/svgIcons/FlagIcon';
 import Link from 'next/link';
 import AddButton from './AddButton';
-import { signOut } from 'next-auth/react';
+import UserSection from './UserSection';
 
 const navigation = [
 	{
@@ -56,7 +56,9 @@ const Navbar = () => {
 										</Link>
 									))}
 								</div>
-								<button onClick={() => signOut()}>SignOut</button>
+								<div className='mt-16'>
+									<UserSection />
+								</div>
 							</div>
 
 							{/* Mobile menu button */}
@@ -93,7 +95,9 @@ const Navbar = () => {
 										</Link>
 									))}
 								</div>
-								<button onClick={() => signOut()}>SignOut</button>
+								<div className='mt-16'>
+									<UserSection />
+								</div>
 							</Disclosure.Panel>
 							{open && (
 								<div className='max-md:absolute max-md:top-0 max-md:bg-black/50 max-md:w-[100vw] max-md:h-[100vh]' />

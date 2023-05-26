@@ -1,4 +1,3 @@
-'use client';
 import { useState, useCallback } from 'react';
 import { Note } from '@/types/noteTypes';
 import {
@@ -14,8 +13,8 @@ const useNote = () => {
 	const [noteList, setNoteList] = useState<Note[] | null>(null);
 	const [note, setNote] = useState<Note | null>(null);
 
-	const getNoteList = useCallback(async () => {
-		const allNotes = await getNotesAPI();
+	const getNoteList = useCallback(async (userId: string) => {
+		const allNotes = await getNotesAPI(userId);
 		setNoteList(allNotes);
 	}, []);
 
