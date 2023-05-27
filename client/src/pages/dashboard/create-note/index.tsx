@@ -1,4 +1,3 @@
-import { NextPage } from 'next';
 import Layout from '@/components/Layout';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -17,7 +16,7 @@ const schema = z.object({
 		.max(1000, { message: 'Maximum 1000 characters' }),
 });
 
-const CreateNotePage: NextPage = () => {
+const CreateNotePage = () => {
 	const {
 		register,
 		handleSubmit,
@@ -25,12 +24,15 @@ const CreateNotePage: NextPage = () => {
 		formState: { errors },
 	} = useForm({ resolver: zodResolver(schema) });
 
-	const { noteCtx } = useMContext();
+	const { noteCtx, authCtx } = useMContext();
 	const { createNote } = noteCtx;
+	const { user } = authCtx;
 
 	const onSubmit = handleSubmit(async (data) => {
-		await createNote(data.title, data.description);
-		reset();
+		if (user) {
+			await createNote(data.title, data.description, user.id);
+			reset();
+		}
 	});
 
 	return (
@@ -75,5 +77,7 @@ const CreateNotePage: NextPage = () => {
 		</>
 	);
 };
+
+CreateNotePage.requireAuth = true;
 
 export default CreateNotePage;

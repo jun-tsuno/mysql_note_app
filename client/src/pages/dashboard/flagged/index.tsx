@@ -1,7 +1,6 @@
-import { NextPage } from 'next';
 import Layout from '@/components/Layout';
 
-const FlaggedPage: NextPage = () => {
+const FlaggedPage = () => {
 	return (
 		<>
 			<Layout>
@@ -10,5 +9,7 @@ const FlaggedPage: NextPage = () => {
 		</>
 	);
 };
+
+FlaggedPage.requireAuth = true;
 
 export default FlaggedPage;

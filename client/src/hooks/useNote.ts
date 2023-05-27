@@ -18,25 +18,34 @@ const useNote = () => {
 		setNoteList(allNotes);
 	}, []);
 
-	const getNote = useCallback(async (id: string) => {
-		const note = await getNoteByIdAPI(id);
+	const getNote = useCallback(async (noteId: string, userId: string) => {
+		const note = await getNoteByIdAPI(noteId, userId);
 
 		const formattedDate = dateFormat(note[0].updatedAt);
 		setNote({ ...note[0], updatedAt: formattedDate });
 	}, []);
 
-	const deleteNote = async (id: string) => {
-		await deleteNoteAPI(id);
+	const deleteNote = async (userId: string, noteId: string) => {
+		await deleteNoteAPI(userId, noteId);
 	};
 
-	const createNote = async (title: string, description: string) => {
-		const result = await createNoteAPI(title, description);
+	const createNote = async (
+		title: string,
+		description: string,
+		userId: string
+	) => {
+		const result = await createNoteAPI(title, description, userId);
 
 		if (result.status === 500) console.log(result);
 	};
 
-	const editNote = async (id: string, title: string, description: string) => {
-		await editNoteAPI(id, title, description);
+	const editNote = async (
+		noteId: string,
+		userId: string,
+		title: string,
+		description: string
+	) => {
+		await editNoteAPI(noteId, userId, title, description);
 	};
 
 	return {

@@ -1,4 +1,3 @@
-'use client';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -31,8 +30,9 @@ const EditPostField = ({
 	description,
 	setIsEdit,
 }: EditPostField) => {
-	const { noteCtx } = useMContext();
+	const { noteCtx, authCtx } = useMContext();
 	const { editNote, getNote } = noteCtx;
+	const { user } = authCtx;
 
 	const {
 		register,
@@ -44,9 +44,11 @@ const EditPostField = ({
 	});
 
 	const onSubmit = handleSubmit(async (data) => {
-		await editNote(noteId, data.newTitle!, data.newDescription!);
-		await getNote(noteId);
-		setIsEdit(false);
+		if (user) {
+			await editNote(noteId, user.id, data.newTitle!, data.newDescription!);
+			await getNote(noteId, user.id);
+			setIsEdit(false);
+		}
 	});
 	return (
 		<>

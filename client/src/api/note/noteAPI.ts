@@ -2,34 +2,42 @@ import { api } from '../api';
 
 export const getNotesAPI = async (userId: string) => {
 	try {
-		const { data } = await api.put(`/api/notes/all-notes/${userId}`);
+		const { data } = await api.get(`/api/notes/all-notes/${userId}`);
 		return data;
 	} catch (error) {
 		console.log(error);
 	}
 };
 
-export const getNoteByIdAPI = async (id: string) => {
+export const getNoteByIdAPI = async (noteId: string, userId: string) => {
 	try {
-		const { data } = await api.put(`/api/notes/${id}`);
+		const { data } = await api.get(`/api/notes/get-note/${userId}/${noteId}`);
 		return data;
 	} catch (error) {
 		console.log(error);
 	}
 };
 
-export const deleteNoteAPI = async (id: string) => {
+export const deleteNoteAPI = async (userId: string, noteId: string) => {
 	try {
-		const { data } = await api.delete(`/api/notes/${id}`);
+		const { data } = await api.delete(`/api/notes/delete/${userId}/${noteId}`);
 		return data;
 	} catch (error) {
 		console.log(error);
 	}
 };
 
-export const createNoteAPI = async (title: string, description: string) => {
+export const createNoteAPI = async (
+	title: string,
+	description: string,
+	userId: string
+) => {
 	try {
-		const { data } = await api.post('/api/notes/', { title, description });
+		const { data } = await api.post('/api/notes/create', {
+			title,
+			description,
+			userId,
+		});
 		return data;
 	} catch (error: unknown) {
 		if (error instanceof Error) {
@@ -39,14 +47,17 @@ export const createNoteAPI = async (title: string, description: string) => {
 };
 
 export const editNoteAPI = async (
-	id: string,
+	noteId: string,
+	userId: string,
 	title: string,
 	description: string
 ) => {
 	try {
-		const result = await api.put(`/api/notes/update/${id}`, {
+		const result = await api.put('/api/notes/update/', {
 			title,
 			description,
+			noteId,
+			userId,
 		});
 
 		return result;

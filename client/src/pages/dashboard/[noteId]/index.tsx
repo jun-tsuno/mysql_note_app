@@ -9,25 +9,30 @@ import { useMContext } from '@/context/MainContext';
 import EditPostField from '@/components/EditPost/EditPostField';
 
 const NotePage = () => {
-	const { noteCtx } = useMContext();
+	const { noteCtx, authCtx } = useMContext();
 	const { note, getNote, deleteNote } = noteCtx;
+	const { user } = authCtx;
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const [isEdit, setIsEdit] = useState<boolean>(false);
 	const router = useRouter();
 	const noteId = router.query.noteId as string;
 
 	useEffect(() => {
-		getNote(noteId);
-	}, [noteId, getNote]);
+		if (user) {
+			getNote(noteId, user.id);
+		}
+	}, [noteId, getNote, user]);
 
 	const closeModal = () => {
 		setIsOpen(false);
 	};
 
 	const handleDelete = async () => {
-		deleteNote(noteId);
-		setIsOpen(false);
-		router.push('/');
+		if (user) {
+			deleteNote(user?.id, noteId);
+			setIsOpen(false);
+			router.push('/');
+		}
 	};
 
 	return (
@@ -78,5 +83,7 @@ const NotePage = () => {
 		</>
 	);
 };
+
+NotePage.requireAuth = true;
 
 export default NotePage;

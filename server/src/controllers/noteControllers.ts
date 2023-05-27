@@ -15,10 +15,10 @@ export const getNotes = (req: Request, res: Response) => {
 };
 
 export const getNote = (req: Request, res: Response) => {
-	const { id } = req.params;
+	const { noteId, userId } = req.params;
 
-	const sqlSelectNote = `SELECT * FROM notes WHERE id = ?`;
-	db.query(sqlSelectNote, id, (err, result) => {
+	const sqlSelectNote = `SELECT * FROM notes WHERE id = ? AND user_id = ?`;
+	db.query(sqlSelectNote, [noteId, userId], (err, result) => {
 		if (err) {
 			console.log(err);
 			return res.status(500).json({ message: 'Fail to fetch a note' });
@@ -29,14 +29,14 @@ export const getNote = (req: Request, res: Response) => {
 };
 
 export const createNote = (req: Request, res: Response) => {
-	const { title, description } = req.body;
+	const { title, description, userId } = req.body;
 
-	const sqlCreateNote = `INSERT INTO notes (title, description, flagged, updatedAt) VALUES (?, ?, false, NOW())`;
+	const sqlCreateNote = `INSERT INTO notes (title, description, user_id, flagged, updatedAt) VALUES (?, ?, ?, false, NOW())`;
 
-	db.query(sqlCreateNote, [title, description], (err, result) => {
+	db.query(sqlCreateNote, [title, description, userId], (err, result) => {
 		if (err) {
 			console.log(err);
-			return res.status(500).json({ message: 'Fail to create' });
+			return res.status(500).json({ message: 'Fail to create a note' });
 		}
 		const newPostId = result.insertId;
 
@@ -53,10 +53,11 @@ export const createNote = (req: Request, res: Response) => {
 };
 
 export const deleteNote = (req: Request, res: Response) => {
-	const { id } = req.params;
+	const { userId, noteId } = req.params;
+	console.log(req.body.data);
 
-	const sqlDeleteNote = `DELETE FROM notes WHERE id = ?`;
-	db.query(sqlDeleteNote, id, (err, result) => {
+	const sqlDeleteNote = `DELETE FROM notes WHERE id = ? AND user_id = ?`;
+	db.query(sqlDeleteNote, [noteId, userId], (err, result) => {
 		if (err) {
 			console.log(err);
 			return res.status(500).json({ message: 'Fail to delete' });
@@ -67,16 +68,19 @@ export const deleteNote = (req: Request, res: Response) => {
 };
 
 export const updateNote = (req: Request, res: Response) => {
-	const { id } = req.params;
-	const { title, description, flagged } = req.body;
+	const { title, description, userId, noteId } = req.body;
 
-	const sqlUpdateNote = `UPDATE notes SET title = ?, description = ?, flagged = ? WHERE id = ?`;
-	db.query(sqlUpdateNote, [title, description, flagged, id], (err, result) => {
-		if (err) {
-			console.log(err);
-			return res.status(500).json({ message: 'Fail to update' });
+	const sqlUpdateNote = `UPDATE notes SET title = ?, description = ? WHERE id = ? AND user_id = ?`;
+	db.query(
+		sqlUpdateNote,
+		[title, description, noteId, userId],
+		(err, result) => {
+			if (err) {
+				console.log(err);
+				return res.status(500).json({ message: 'Fail to update' });
+			}
+
+			return res.status(200).json({ message: 'Successfully updated' });
 		}
-
-		return res.status(200).json({ message: 'Successfully updated' });
-	});
+	);
 };

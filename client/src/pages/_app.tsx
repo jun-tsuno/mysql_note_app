@@ -1,19 +1,32 @@
 import '@/styles/globals.css';
 import type { AppProps } from 'next/app';
-import { Inter } from 'next/font/google';
 import { MContextProvider } from '@/context/MainContext';
 import { SessionProvider } from 'next-auth/react';
+import { ProtectedLayout } from '@/components/protectedLayout';
 
-const inter = Inter({ subsets: ['latin'] });
+type AppPropsWithAuth = AppProps & {
+	Component: {
+		requireAuth?: boolean;
+	};
+};
+
+// to protect the page:
+// Component.requireAuth = true;
 
 export default function App({
 	Component,
 	pageProps: { session, ...pageProps },
-}: AppProps) {
+}: AppPropsWithAuth) {
 	return (
 		<SessionProvider session={session}>
 			<MContextProvider>
-				<Component {...pageProps} />
+				{Component.requireAuth ? (
+					<ProtectedLayout>
+						<Component {...pageProps} />
+					</ProtectedLayout>
+				) : (
+					<Component {...pageProps} />
+				)}
 			</MContextProvider>
 		</SessionProvider>
 	);
