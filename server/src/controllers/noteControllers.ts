@@ -8,7 +8,7 @@ export const getNotes = (req: Request, res: Response) => {
 	db.query(sqlSelectNotes, userId, (err, result) => {
 		if (err) {
 			console.log(err);
-			return res.status(400).json({ message: 'Fail to fetch notes' });
+			return res.status(500).json({ message: 'Fail to fetch notes' });
 		}
 		return res.status(200).json(result);
 	});

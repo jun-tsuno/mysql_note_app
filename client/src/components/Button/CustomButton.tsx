@@ -1,8 +1,8 @@
-import { ButtonHTMLAttributes } from 'react';
+import { ButtonHTMLAttributes, ReactNode } from 'react';
 import classNames from 'classnames';
 
 interface CustomButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-	children: string | JSX.Element;
+	children: string | ReactNode;
 	className?: string;
 	primary?: boolean;
 	secondary?: boolean;

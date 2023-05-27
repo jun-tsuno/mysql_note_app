@@ -1,9 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-	content: [
-		// Or if using `src` directory:
-		'./src/**/*.{js,ts,jsx,tsx,mdx}',
-	],
+	content: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
 	theme: {
 		extend: {
 			backgroundImage: {
@@ -23,6 +20,9 @@ module.exports = {
 					gray: '#ced4da',
 					'light-gray': '#e9ecef',
 				},
+			},
+			fontFamily: {
+				pacifico: ['var(--font-pacifico)'],
 			},
 		},
 	},
