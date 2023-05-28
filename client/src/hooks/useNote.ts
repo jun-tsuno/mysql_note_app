@@ -26,6 +26,14 @@ const useNote = () => {
 		setNote({ ...note[0], updatedAt: formattedDate });
 	}, []);
 
+	const getFlaggedList = () => {
+		if (!noteList) return null;
+
+		return noteList?.filter((note) => {
+			return note.flagged_id !== null;
+		});
+	};
+
 	const createNote = async (
 		title: string,
 		description: string,
@@ -54,16 +62,28 @@ const useNote = () => {
 		noteId: string,
 		isFlagged: boolean
 	) => {
-		const newFlaggedId = await flagNoteAPI(userId, noteId, isFlagged);
-		return newFlaggedId;
+		await flagNoteAPI(userId, noteId, isFlagged).then((res) => {
+			const newNoteList = (res: string | null): Note[] | null => {
+				if (!noteList) return null;
+				return noteList?.map((note) => {
+					if (note.note_id === +noteId) {
+						note.flagged_id = res;
+					}
+					return note;
+				});
+			};
+
+			setNote({ ...note, flagged_id: res } as Note);
+			setNoteList(newNoteList(res));
+		});
 	};
 
 	return {
 		noteList,
 		note,
-		setNote,
 		getNoteList,
 		getNote,
+		getFlaggedList,
 		deleteNote,
 		createNote,
 		editNote,

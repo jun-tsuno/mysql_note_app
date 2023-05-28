@@ -1,18 +1,17 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import { useMContext } from '@/context/MainContext';
 import Layout from '@/components/Layout';
 import CustomButton from '@/components/Button/CustomButton';
+import CustomModal from '@/components/Modal/CustomModal';
+import EditPostField from '@/components/EditPost/EditPostField';
 import TrashIcon from '@/public/svgIcons/TrashIcon';
 import PencilIcon from '@/public/svgIcons/PencilIcon';
-import CustomModal from '@/components/Modal/CustomModal';
-import { useMContext } from '@/context/MainContext';
-import EditPostField from '@/components/EditPost/EditPostField';
 import FlagIcon from '@/public/svgIcons/FlagIcon';
-import { Note } from '@/types/noteTypes';
 
 const NotePage = () => {
 	const { noteCtx, authCtx } = useMContext();
-	const { note, setNote, getNote, deleteNote, flagNote } = noteCtx;
+	const { note, getNote, deleteNote, flagNote } = noteCtx;
 	const { user } = authCtx;
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const [isEdit, setIsEdit] = useState<boolean>(false);
@@ -42,9 +41,7 @@ const NotePage = () => {
 	const handleFlag = async () => {
 		const newIsFlagged = !isFlagged;
 		if (user) {
-			await flagNote(user?.id, noteId, newIsFlagged).then((res) => {
-				setNote({ ...note, flagged_id: res } as Note);
-			});
+			await flagNote(user?.id, noteId, newIsFlagged);
 		}
 	};
 

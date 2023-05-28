@@ -118,7 +118,6 @@ export const toggleFlagged = (req: Request, res: Response) => {
 				.json({ message: 'Successfully added to flagged', newFlaggedId });
 		});
 	}
-
 	// if isFlagged is 'false', the data is deleted from the table
 	if (!isFlagged) {
 		db.query(sqlRemoveFlagged, [noteId], (err, result) => {

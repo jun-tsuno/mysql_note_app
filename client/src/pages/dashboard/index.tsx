@@ -1,12 +1,12 @@
 import { Fragment, useEffect } from 'react';
 import { NextPage } from 'next';
-import Layout from '@/components/Layout';
-import { Note } from '@/types/noteTypes';
-import Card from '@/components/Card/Card';
-import { useMContext } from '@/context/MainContext';
-import EmptyIcon from '@/public/svgIcons/EmptyIcon';
 import { useSession } from 'next-auth/react';
+import { useMContext } from '@/context/MainContext';
+import { Note } from '@/types/noteTypes';
 import { useRouter } from 'next/router';
+import Layout from '@/components/Layout';
+import Card from '@/components/Card/Card';
+import EmptyIcon from '@/public/svgIcons/EmptyIcon';
 
 const HomePage: NextPage = () => {
 	const { noteCtx, authCtx } = useMContext();

@@ -1,9 +1,9 @@
-import Layout from '@/components/Layout';
+import { useMContext } from '@/context/MainContext';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
+import Layout from '@/components/Layout';
 import CustomButton from '@/components/Button/CustomButton';
-import { useMContext } from '@/context/MainContext';
 
 const schema = z.object({
 	title: z

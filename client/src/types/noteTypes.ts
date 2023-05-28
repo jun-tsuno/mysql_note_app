@@ -1,5 +1,5 @@
 export interface Note {
-	note_id: string;
+	note_id: number;
 	title: string;
 	description?: string;
 	updatedAt: string;
