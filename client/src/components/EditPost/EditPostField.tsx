@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -5,6 +6,7 @@ import { Dispatch, SetStateAction } from 'react';
 import CustomButton from '../Button/CustomButton';
 import SendIcon from '@/public/svgIcons/SendIcon';
 import { useMContext } from '@/context/MainContext';
+import FlagIcon from '@/public/svgIcons/FlagIcon';
 
 interface EditPostField {
 	noteId: string;

@@ -5,7 +5,7 @@ export const userLogin = async (req: Request, res: Response) => {
 	const { id, email } = req.body;
 
 	const sqlFindUser = `SELECT * FROM users WHERE email = ?`;
-	const sqlInsertUserData = `INSERT INTO users (id, email) VALUES (?, ?)`;
+	const sqlInsertUserData = `INSERT INTO users (user_id, email) VALUES (?, ?)`;
 
 	db.query(sqlFindUser, email, (err, result) => {
 		if (err) {

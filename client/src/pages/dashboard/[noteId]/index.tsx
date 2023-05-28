@@ -7,15 +7,19 @@ import PencilIcon from '@/public/svgIcons/PencilIcon';
 import CustomModal from '@/components/Modal/CustomModal';
 import { useMContext } from '@/context/MainContext';
 import EditPostField from '@/components/EditPost/EditPostField';
+import FlagIcon from '@/public/svgIcons/FlagIcon';
+import { Note } from '@/types/noteTypes';
 
 const NotePage = () => {
 	const { noteCtx, authCtx } = useMContext();
-	const { note, getNote, deleteNote } = noteCtx;
+	const { note, setNote, getNote, deleteNote, flagNote } = noteCtx;
 	const { user } = authCtx;
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const [isEdit, setIsEdit] = useState<boolean>(false);
 	const router = useRouter();
 	const noteId = router.query.noteId as string;
+
+	const isFlagged = note?.flagged_id ? true : false;
 
 	useEffect(() => {
 		if (user) {
@@ -29,16 +33,29 @@ const NotePage = () => {
 
 	const handleDelete = async () => {
 		if (user) {
-			deleteNote(user?.id, noteId);
+			await deleteNote(user?.id, noteId);
 			setIsOpen(false);
 			router.push('/');
+		}
+	};
+
+	const handleFlag = async () => {
+		const newIsFlagged = !isFlagged;
+		if (user) {
+			await flagNote(user?.id, noteId, newIsFlagged).then((res) => {
+				setNote({ ...note, flagged_id: res } as Note);
+			});
 		}
 	};
 
 	return (
 		<>
 			<Layout>
-				<div className='bg-primary-green rounded-md py-10 px-5 mt-5 max-w-[800px] mx-auto'>
+				<div
+					className={`rounded-md py-10 px-5 mt-5 max-w-[800px] mx-auto ${
+						note?.flagged_id ? 'bg-primary-pink' : 'bg-primary-green'
+					}`}
+				>
 					{!isEdit ? (
 						<>
 							<h1>{note?.title}</h1>
@@ -46,6 +63,9 @@ const NotePage = () => {
 							<p className='py-10'>{note?.description}</p>
 
 							<div className='flex gap-x-2 justify-end pb-3'>
+								<CustomButton secondary rounded onClick={handleFlag}>
+									<FlagIcon />
+								</CustomButton>
 								<CustomButton
 									secondary
 									rounded

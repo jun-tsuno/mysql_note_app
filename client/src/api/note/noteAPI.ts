@@ -18,15 +18,6 @@ export const getNoteByIdAPI = async (noteId: string, userId: string) => {
 	}
 };
 
-export const deleteNoteAPI = async (userId: string, noteId: string) => {
-	try {
-		const { data } = await api.delete(`/api/notes/delete/${userId}/${noteId}`);
-		return data;
-	} catch (error) {
-		console.log(error);
-	}
-};
-
 export const createNoteAPI = async (
 	title: string,
 	description: string,
@@ -46,6 +37,15 @@ export const createNoteAPI = async (
 	}
 };
 
+export const deleteNoteAPI = async (userId: string, noteId: string) => {
+	try {
+		const { data } = await api.delete(`/api/notes/delete/${userId}/${noteId}`);
+		return data;
+	} catch (error) {
+		console.log(error);
+	}
+};
+
 export const editNoteAPI = async (
 	noteId: string,
 	userId: string,
@@ -61,6 +61,24 @@ export const editNoteAPI = async (
 		});
 
 		return result;
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+export const flagNoteAPI = async (
+	userId: string,
+	noteId: string,
+	isFlagged: boolean
+) => {
+	try {
+		const { data } = await api.put('/api/notes/flagged', {
+			userId,
+			noteId,
+			isFlagged,
+		});
+
+		return data.newFlaggedId;
 	} catch (error) {
 		console.log(error);
 	}

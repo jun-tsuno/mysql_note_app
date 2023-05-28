@@ -6,6 +6,7 @@ import {
 	deleteNoteAPI,
 	createNoteAPI,
 	editNoteAPI,
+	flagNoteAPI,
 } from '@/api/note/noteAPI';
 import { dateFormat } from '@/helpers/dateFormat';
 
@@ -25,10 +26,6 @@ const useNote = () => {
 		setNote({ ...note[0], updatedAt: formattedDate });
 	}, []);
 
-	const deleteNote = async (userId: string, noteId: string) => {
-		await deleteNoteAPI(userId, noteId);
-	};
-
 	const createNote = async (
 		title: string,
 		description: string,
@@ -37,6 +34,10 @@ const useNote = () => {
 		const result = await createNoteAPI(title, description, userId);
 
 		if (result.status === 500) console.log(result);
+	};
+
+	const deleteNote = async (userId: string, noteId: string) => {
+		await deleteNoteAPI(userId, noteId);
 	};
 
 	const editNote = async (
@@ -48,14 +49,25 @@ const useNote = () => {
 		await editNoteAPI(noteId, userId, title, description);
 	};
 
+	const flagNote = async (
+		userId: string,
+		noteId: string,
+		isFlagged: boolean
+	) => {
+		const newFlaggedId = await flagNoteAPI(userId, noteId, isFlagged);
+		return newFlaggedId;
+	};
+
 	return {
 		noteList,
 		note,
+		setNote,
 		getNoteList,
 		getNote,
 		deleteNote,
 		createNote,
 		editNote,
+		flagNote,
 	};
 };
 

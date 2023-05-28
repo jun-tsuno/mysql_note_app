@@ -3,12 +3,12 @@ import type { AppProps } from 'next/app';
 import { MContextProvider } from '@/context/MainContext';
 import { SessionProvider } from 'next-auth/react';
 import { ProtectedLayout } from '@/components/protectedLayout';
-import { Pacifico } from 'next/font/google';
+import { Della_Respira } from 'next/font/google';
 
-const pacifico = Pacifico({
+const della = Della_Respira({
 	weight: '400',
 	subsets: ['latin'],
-	variable: '--font-pacifico',
+	variable: '--font-della',
 });
 
 type AppPropsWithAuth = AppProps & {
@@ -29,12 +29,12 @@ export default function App({
 			<MContextProvider>
 				{Component.requireAuth ? (
 					<ProtectedLayout>
-						<main className={`${pacifico.variable}`}>
+						<main className={`${della.variable}`}>
 							<Component {...pageProps} />
 						</main>
 					</ProtectedLayout>
 				) : (
-					<main className={`${pacifico.variable}`}>
+					<main className={`${della.variable}`}>
 						<Component {...pageProps} />
 					</main>
 				)}

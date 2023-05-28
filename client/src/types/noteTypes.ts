@@ -1,7 +1,8 @@
 export interface Note {
-	id: number;
+	note_id: string;
 	title: string;
 	description?: string;
-	flagged?: boolean;
 	updatedAt: string;
+	user_id: string;
+	flagged_id: string | null;
 }

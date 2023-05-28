@@ -21,29 +21,28 @@ export const connectDb = () => {
 			console.log('DB connected');
 
 			const sqlCreateUserTable = `CREATE TABLE IF NOT EXISTS users (
-        id VARCHAR(255) NOT NULL,
+        user_id VARCHAR(255) NOT NULL,
         email VARCHAR(255) NOT NULL,
-        PRIMARY KEY (id)
+        PRIMARY KEY (user_id)
       )`;
 
 			const sqlCreateNoteTable = `CREATE TABLE IF NOT EXISTS notes (
-        id INT AUTO_INCREMENT NOT NULL,
+        note_id INT AUTO_INCREMENT NOT NULL UNIQUE,
         title VARCHAR(255) NOT NULL,
         description TEXT,
         user_id VARCHAR(255) NOT NULL,
-        flagged BOOL,
         updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-        PRIMARY KEY (id),
-        FOREIGN KEY (user_id) REFERENCES users(id)
+        PRIMARY KEY (note_id),
+        FOREIGN KEY (user_id) REFERENCES users(user_id)
       )`;
 
 			const sqlCreateFlaggedTable = `CREATE TABLE IF NOT EXISTS flagged (
-        id INT AUTO_INCREMENT NOT NULL,
+        flagged_id INT AUTO_INCREMENT NOT NULL,
         user_id VARCHAR(255) NOT NULL,
         note_id INT NOT NULL,
-        PRIMARY KEY (id),
-        FOREIGN KEY (user_id) REFERENCES users(id),
-        FOREIGN KEY (note_id) REFERENCES notes(id)
+        PRIMARY KEY (flagged_id),
+        FOREIGN KEY (user_id) REFERENCES users(user_id),
+        FOREIGN KEY (note_id) REFERENCES notes(note_id)
       )`;
 
 			const query = `${sqlCreateUserTable}; ${sqlCreateNoteTable}; ${sqlCreateFlaggedTable}`;

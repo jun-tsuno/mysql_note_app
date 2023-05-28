@@ -22,7 +22,7 @@ module.exports = {
 				},
 			},
 			fontFamily: {
-				pacifico: ['var(--font-pacifico)'],
+				della: ['var(--font-della)'],
 			},
 		},
 	},
