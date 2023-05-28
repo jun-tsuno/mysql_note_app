@@ -45,7 +45,9 @@ export const connectDb = () => {
         FOREIGN KEY (note_id) REFERENCES notes(note_id)
       )`;
 
-			const query = `${sqlCreateUserTable}; ${sqlCreateNoteTable}; ${sqlCreateFlaggedTable}`;
+			const sqlSafeUpdates = `SET sql_safe_updates = 0`;
+
+			const query = `${sqlCreateUserTable}; ${sqlCreateNoteTable}; ${sqlCreateFlaggedTable}; ${sqlSafeUpdates}`;
 
 			db.query(query, (err, result) => {
 				if (err) return console.log(err);

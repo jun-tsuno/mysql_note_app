@@ -64,14 +64,19 @@ export const createNote = (req: Request, res: Response) => {
 export const deleteNote = (req: Request, res: Response) => {
 	const { userId, noteId } = req.params;
 
+	const sqlDeleteFlagged = `DELETE FROM flagged WHERE note_id = ?`;
 	const sqlDeleteNote = `DELETE FROM notes WHERE note_id = ? AND user_id = ?`;
-	db.query(sqlDeleteNote, [noteId, userId], (err, result) => {
+	const sqlDeleteNoteAndFlagged = `${sqlDeleteFlagged}; ${sqlDeleteNote}`;
+
+	db.query(sqlDeleteNoteAndFlagged, [noteId, noteId, userId], (err, result) => {
 		if (err) {
 			console.log(err);
 			return res.status(500).json({ message: 'Fail to delete' });
 		}
 
-		return res.status(200).json({ message: 'Successfully deleted' });
+		return res
+			.status(200)
+			.json({ message: 'Successfully deleted note and flagged' });
 	});
 };
 
