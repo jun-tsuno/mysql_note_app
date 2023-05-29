@@ -9,9 +9,6 @@ export const db = mysql.createPool({
 	database: process.env.DB_NAME,
 	port: Number(process.env.DB_PORT),
 	multipleStatements: true,
-	// ssl: {
-	// 	rejectUnauthorized: true,
-	// },
 });
 
 export const connectDb = () => {
@@ -27,7 +24,7 @@ export const connectDb = () => {
       )`;
 
 			const sqlCreateNoteTable = `CREATE TABLE IF NOT EXISTS notes (
-        note_id INT AUTO_INCREMENT NOT NULL UNIQUE,
+        note_id INT AUTO_INCREMENT NOT NULL,
         title VARCHAR(255) NOT NULL,
         description TEXT,
         user_id VARCHAR(255) NOT NULL,
@@ -47,7 +44,7 @@ export const connectDb = () => {
 
 			const sqlSafeUpdates = `SET sql_safe_updates = 0`;
 
-			const query = `${sqlCreateUserTable}; ${sqlCreateNoteTable}; ${sqlCreateFlaggedTable}; ${sqlSafeUpdates}`;
+			const query = `${sqlCreateUserTable}; ${sqlCreateNoteTable}; ${sqlCreateFlaggedTable}; ${sqlSafeUpdates};`;
 
 			db.query(query, (err, result) => {
 				if (err) return console.log(err);
