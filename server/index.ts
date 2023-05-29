@@ -2,9 +2,9 @@ import express from 'express';
 import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import { connectDb } from './config/db';
-import noteRouters from './routers/noteRouters';
-import authRouters from './routers/authRoutes';
+import { connectDb } from './src/config/db';
+import noteRouters from './src/routers/noteRouters';
+import authRouters from './src/routers/authRoutes';
 
 dotenv.config();
 
