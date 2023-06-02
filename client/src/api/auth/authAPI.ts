@@ -8,3 +8,12 @@ export const userLoginAPI = async (id: string, email: string) => {
 		console.log(error);
 	}
 };
+
+export const userDeleteAPI = async (userId: string) => {
+	try {
+		const { data } = await api.delete(`/api/auth/${userId}`);
+		return data;
+	} catch (error) {
+		console.log(error);
+	}
+};

@@ -30,3 +30,23 @@ export const userLogin = async (req: Request, res: Response) => {
 		});
 	});
 };
+
+export const deleteUser = (req: Request, res: Response) => {
+	const { userId } = req.params;
+
+	const sqlDeleteUser = `DELETE FROM users WHERE user_id = ?`;
+	const sqlDeleteNotes = `DELETE FROM notes WHERE user_id = ?`;
+	const sqlDeleteFlagged = `DELETE FROM flagged WHERE user_id = ?`;
+
+	const sqlDeleteUserRecord = `${sqlDeleteFlagged}; ${sqlDeleteNotes}; ${sqlDeleteUser}`;
+	db.query(sqlDeleteUserRecord, [userId, userId, userId], (err, result) => {
+		if (err) {
+			console.log(err);
+			return res
+				.status(500)
+				.json({ message: 'Fail to delete user data', err, deleted: false });
+		}
+
+		return res.status(200).json({ message: 'User Deleted', deleted: true });
+	});
+};

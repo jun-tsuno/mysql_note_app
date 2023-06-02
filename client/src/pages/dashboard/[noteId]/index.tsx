@@ -4,6 +4,7 @@ import { useMContext } from '@/context/MainContext';
 import Layout from '@/components/Layout';
 import CustomButton from '@/components/Button/CustomButton';
 import CustomModal from '@/components/Modal/CustomModal';
+import PostModalBody from '@/components/Modal/PostModalBody';
 import EditPostField from '@/components/EditPost/EditPostField';
 import TrashIcon from '@/public/svgIcons/TrashIcon';
 import PencilIcon from '@/public/svgIcons/PencilIcon';
@@ -90,12 +91,9 @@ const NotePage = () => {
 				</div>
 
 				{/* modal for delete post */}
-				<CustomModal
-					isOpen={isOpen}
-					setIsOpen={setIsOpen}
-					closeModal={closeModal}
-					handleDelete={handleDelete}
-				/>
+				<CustomModal isOpen={isOpen} closeModal={closeModal}>
+					<PostModalBody handleDelete={handleDelete} />
+				</CustomModal>
 			</Layout>
 		</>
 	);
