@@ -1,0 +1,39 @@
+version: '3.9'
+
+networks:
+  app-tier:
+    driver: bridge
+
+services:
+  db:
+    image: mysql
+    container_name: mysql_c
+    restart: always
+    expose:
+      - '3306'
+    ports:
+      - '3306:3306'
+    networks:
+      - app-tier
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: note_app
+    command: --default-authentication-plugin=mysql_native_password
+  server:
+    build: ./server
+    container_name: server_c
+    ports:
+      - '8000:8000'
+    networks:
+      - app-tier
+    environment:
+      - DB_HOST=db
+      - DB_USER=root
+      - DB_PASSWORD=password
+      - DB_NAME=note_app
+      - DB_PORT=3306
+    volumes:
+      - ./server:/app
+      - /app/node_modules
+    depends_on:
+      - db
