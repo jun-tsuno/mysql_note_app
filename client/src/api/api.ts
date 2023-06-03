@@ -1,5 +1,9 @@
 import axios from 'axios';
 
+// export const api = axios.create({
+// 	baseURL: 'https://mysql-note-app.vercel.app/',
+// });
+
 export const api = axios.create({
-	baseURL: 'https://mysql-note-app.vercel.app/',
+	baseURL: 'http://localhost:8000',
 });
