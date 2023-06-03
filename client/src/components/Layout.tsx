@@ -1,4 +1,3 @@
-'use client';
 import Navbar from './Navbar/Navbar';
 
 interface LayoutProps {

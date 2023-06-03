@@ -22,6 +22,7 @@ https://mysql-note-app-wheat.vercel.app/
 
 - SignIn with Google Authentication
 - Create, Edit, Delete notes. Mark as 'flagged' note.
+- Delete user account, and all the records associated with the user are deleted.
 
 ## Challenge
 
