@@ -1,4 +1,4 @@
-import AddIcon from '@/public/svgIcons/AddIcon';
+import AddIcon from '@public/svgIcons/AddIcon';
 
 interface AddButtonProps {
 	iWidth?: number;

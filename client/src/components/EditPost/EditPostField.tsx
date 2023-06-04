@@ -3,7 +3,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { Dispatch, SetStateAction } from 'react';
 import CustomButton from '../Button/CustomButton';
-import SendIcon from '@/public/svgIcons/SendIcon';
+import SendIcon from '@public/svgIcons/SendIcon';
 import { useMContext } from '@/context/MainContext';
 
 interface EditPostField {

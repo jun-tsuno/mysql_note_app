@@ -6,9 +6,9 @@ import CustomButton from '@/components/Button/CustomButton';
 import CustomModal from '@/components/Modal/CustomModal';
 import PostModalBody from '@/components/Modal/PostModalBody';
 import EditPostField from '@/components/EditPost/EditPostField';
-import TrashIcon from '@/public/svgIcons/TrashIcon';
-import PencilIcon from '@/public/svgIcons/PencilIcon';
-import FlagIcon from '@/public/svgIcons/FlagIcon';
+import TrashIcon from '@public/svgIcons/TrashIcon';
+import PencilIcon from '@public/svgIcons/PencilIcon';
+import FlagIcon from '@public/svgIcons/FlagIcon';
 
 const NotePage = () => {
 	const { noteCtx, authCtx } = useMContext();
