@@ -43,9 +43,9 @@ const HomePage: NextPage = () => {
 						{noteList &&
 							noteList.map((note: Note) => {
 								return (
-									<Fragment key={note.note_id}>
+									<div key={note.note_id} data-testid='card-component'>
 										<Card note={note} />
-									</Fragment>
+									</div>
 								);
 							})}
 					</div>

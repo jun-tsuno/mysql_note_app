@@ -1,6 +1,6 @@
-import { act, fireEvent, render, screen } from '@testing-library/react';
+import { render, screen, act, waitFor } from '@testing-library/react';
 import HomePage from '@/pages/dashboard';
-import { MContextProvider } from '@/context/MainContext';
+import { MContextProvider, useMContext } from '@/context/MainContext';
 import { SessionProvider } from 'next-auth/react';
 
 const MockHomePage = () => {
@@ -14,7 +14,6 @@ const MockHomePage = () => {
 };
 
 jest.mock('next/router', () => ({ useRouter: () => ({ push: jest.fn() }) }));
-//  mock for next-auth
 jest.mock('next-auth/react', () => {
 	const originalModule = jest.requireActual('next-auth/react');
 	const mockSession = {
@@ -33,14 +32,14 @@ jest.mock('next-auth/react', () => {
 		}),
 	};
 });
-// mock for context
+
 jest.mock('@/context/MainContext', () => {
 	const originalModule = jest.requireActual('@/context/MainContext');
-	const mockNoteList: any = [];
+
 	const useMContext = jest.fn(() => {
 		return {
 			noteCtx: {
-				noteList: mockNoteList,
+				noteList: [],
 				getNoteList: jest.fn(),
 			},
 			authCtx: {
@@ -56,13 +55,36 @@ jest.mock('@/context/MainContext', () => {
 });
 
 describe('Dashboard HomePage', () => {
-	it('should render message if there is no note', () => {
-		act(() => {
-			render(<MockHomePage />);
-		});
-		const messageEle = screen.getByText('You do not have a note');
+	it('should render an empty note message if there is no note', () => {
+		render(<MockHomePage />);
+		const emptyMessageEle = screen.getByText('You do not have a note');
 
-		screen.debug();
-		expect(messageEle).toBeInTheDocument();
+		expect(emptyMessageEle).toBeInTheDocument();
 	});
+
+	// it('should render a Card if there is more than one note', async () => {
+	// 	const newNoteList = [
+	// 		{
+	// 			note_id: 1,
+	// 			title: 'example',
+	// 			description: 'example',
+	// 			updatedAt: '2023-06-05 06:23:00',
+	// 			user_id: 'example',
+	// 			flagged_id: 'example',
+	// 		},
+	// 	];
+
+	// 	await act(() => {
+	// 		useMContext().noteCtx.noteList = newNoteList;
+	// 	});
+
+	// 	await act(async () => {
+	// 		await waitFor(() => render(<MockHomePage />));
+	// 	});
+
+	// 	screen.debug();
+
+	// 	const cardComponentEle = screen.getByTestId('card-component');
+	// 	expect(cardComponentEle).toBeInTheDocument();
+	// });
 });
