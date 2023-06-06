@@ -41,14 +41,21 @@ const CreateNotePage = () => {
 				<div className='h-full flex flex-col'>
 					<h1>Create a Note</h1>
 					<div className='w-[90%] max-w-[1000px] h-[80vh] my-auto mx-auto bg-primary-green rounded-md py-10 px-5'>
-						<form onSubmit={onSubmit} className='flex flex-col h-full'>
+						<form
+							onSubmit={onSubmit}
+							className='flex flex-col h-full'
+							data-testid='form-element'
+						>
 							<input
 								{...register('title')}
 								placeholder='Title'
 								className='py-2 px-3 bg-transparent border-l-8 border-secondary-dark-gray-2 rounded-sm'
 							/>
 							{errors.title?.message && (
-								<p className='my-2 text-sm font-semibold text-red-500'>
+								<p
+									className='my-2 text-sm font-semibold text-red-500'
+									data-testid='title-error'
+								>
 									** {errors.title?.message as string}
 								</p>
 							)}

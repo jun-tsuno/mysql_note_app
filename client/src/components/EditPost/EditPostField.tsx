@@ -63,7 +63,10 @@ const EditPostField = ({
 					className='py-2 px-3 bg-transparent border-l-8 border-secondary-dark-gray-2 rounded-sm'
 				/>
 				{errors.newTitle?.message && (
-					<p className='my-2 text-sm font-semibold text-red-500'>
+					<p
+						className='my-2 text-sm font-semibold text-red-500'
+						data-testid='title-error'
+					>
 						** {errors.newTitle?.message as string}
 					</p>
 				)}

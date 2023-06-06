@@ -3,7 +3,6 @@ import EditPostField from '@/components/EditPost/EditPostField';
 import { MContextProvider } from '../../context/MainContext';
 
 const mockedSetIsEdit = jest.fn();
-
 const MockedEditPostField = () => {
 	return (
 		<MContextProvider>
@@ -41,24 +40,38 @@ describe('EditPostField', () => {
 	});
 
 	describe('Form submit', () => {
-		beforeAll(() => {
+		beforeEach(() => {
 			render(<MockedEditPostField />);
 		});
 
-		it('Submit a form with valid inputs', async () => {
-			const mockOnSubmit = jest.fn();
-
+		it('should reset text areas with valid inputs', () => {
 			const inputEle = screen.getByPlaceholderText('Title');
 			const textareaEle = screen.getByPlaceholderText('Description');
 			const formEle = screen.getByTestId('form-element');
 
-			await act(async () => {
+			act(() => {
 				fireEvent.change(inputEle, { target: { value: 'new title' } });
 				fireEvent.change(textareaEle, { target: { value: 'new description' } });
 				fireEvent.submit(formEle);
 			});
 
-			expect(mockOnSubmit).toHaveBeenCalled();
+			expect(inputEle.textContent).toBe('');
+			expect(textareaEle.textContent).toBe('');
+		});
+
+		it('should show warning message with invalid title input', async () => {
+			const inputEle = screen.getByPlaceholderText('Title');
+			const textareaEle = screen.getByPlaceholderText('Description');
+			const formEle = screen.getByTestId('form-element');
+
+			await act(async () => {
+				fireEvent.change(inputEle, { target: { value: '' } });
+				fireEvent.change(textareaEle, { target: { value: 'new description' } });
+				fireEvent.submit(formEle);
+			});
+
+			const titleErrorEle = screen.getByTestId('title-error');
+			expect(titleErrorEle.textContent).toBe('** This field is required.');
 		});
 	});
 });
