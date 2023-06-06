@@ -1,6 +1,6 @@
-import { render, screen, act, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import HomePage from '@/pages/dashboard';
-import { MContextProvider, useMContext } from '@/context/MainContext';
+import { MContextProvider } from '@/context/MainContext';
 import { SessionProvider } from 'next-auth/react';
 
 const MockHomePage = () => {
@@ -61,30 +61,4 @@ describe('Dashboard HomePage', () => {
 
 		expect(emptyMessageEle).toBeInTheDocument();
 	});
-
-	// it('should render a Card if there is more than one note', async () => {
-	// 	const newNoteList = [
-	// 		{
-	// 			note_id: 1,
-	// 			title: 'example',
-	// 			description: 'example',
-	// 			updatedAt: '2023-06-05 06:23:00',
-	// 			user_id: 'example',
-	// 			flagged_id: 'example',
-	// 		},
-	// 	];
-
-	// 	await act(() => {
-	// 		useMContext().noteCtx.noteList = newNoteList;
-	// 	});
-
-	// 	await act(async () => {
-	// 		await waitFor(() => render(<MockHomePage />));
-	// 	});
-
-	// 	screen.debug();
-
-	// 	const cardComponentEle = screen.getByTestId('card-component');
-	// 	expect(cardComponentEle).toBeInTheDocument();
-	// });
 });

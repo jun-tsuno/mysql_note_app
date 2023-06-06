@@ -52,7 +52,11 @@ const EditPostField = ({
 	});
 	return (
 		<>
-			<form onSubmit={onSubmit} className='flex flex-col h-full'>
+			<form
+				onSubmit={onSubmit}
+				className='flex flex-col h-full'
+				data-testid='form-element'
+			>
 				<input
 					{...register('newTitle')}
 					placeholder='Title'

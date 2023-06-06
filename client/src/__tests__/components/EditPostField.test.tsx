@@ -48,20 +48,17 @@ describe('EditPostField', () => {
 		it('Submit a form with valid inputs', async () => {
 			const mockOnSubmit = jest.fn();
 
-			const inputEle = screen.getByPlaceholderText('Title') as HTMLInputElement;
-			const textareaEle = screen.getByPlaceholderText(
-				'Description'
-			) as HTMLTextAreaElement;
-			const buttonEle = screen.getByRole('button') as HTMLButtonElement;
+			const inputEle = screen.getByPlaceholderText('Title');
+			const textareaEle = screen.getByPlaceholderText('Description');
+			const formEle = screen.getByTestId('form-element');
 
 			await act(async () => {
 				fireEvent.change(inputEle, { target: { value: 'new title' } });
 				fireEvent.change(textareaEle, { target: { value: 'new description' } });
-				fireEvent.click(buttonEle);
+				fireEvent.submit(formEle);
 			});
 
-			// TODO
-			// expect(mockOnSubmit).toBeCalled();
+			expect(mockOnSubmit).toHaveBeenCalled();
 		});
 	});
 });
