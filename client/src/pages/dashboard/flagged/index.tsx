@@ -3,7 +3,7 @@ import { useMContext } from '@/context/MainContext';
 import { Note } from '@/types/noteTypes';
 import Card from '@/components/Card/Card';
 import Layout from '@/components/Layout';
-import EmptyIcon from '@/public/svgIcons/EmptyIcon';
+import EmptyIcon from '@public/svgIcons/EmptyIcon';
 
 const FlaggedPage = () => {
 	const { noteCtx } = useMContext();

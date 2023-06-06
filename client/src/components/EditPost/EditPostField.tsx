@@ -3,7 +3,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { Dispatch, SetStateAction } from 'react';
 import CustomButton from '../Button/CustomButton';
-import SendIcon from '@/public/svgIcons/SendIcon';
+import SendIcon from '@public/svgIcons/SendIcon';
 import { useMContext } from '@/context/MainContext';
 
 interface EditPostField {
@@ -52,14 +52,21 @@ const EditPostField = ({
 	});
 	return (
 		<>
-			<form onSubmit={onSubmit} className='flex flex-col h-full'>
+			<form
+				onSubmit={onSubmit}
+				className='flex flex-col h-full'
+				data-testid='form-element'
+			>
 				<input
 					{...register('newTitle')}
 					placeholder='Title'
 					className='py-2 px-3 bg-transparent border-l-8 border-secondary-dark-gray-2 rounded-sm'
 				/>
 				{errors.newTitle?.message && (
-					<p className='my-2 text-sm font-semibold text-red-500'>
+					<p
+						className='my-2 text-sm font-semibold text-red-500'
+						data-testid='title-error'
+					>
 						** {errors.newTitle?.message as string}
 					</p>
 				)}

@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { useSession, signIn } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import GoogleIcon from '@/public/svgIcons/GoogleIcon';
+import GoogleIcon from '@public/svgIcons/GoogleIcon';
 import CustomButton from '@/components/Button/CustomButton';
-import PostitIcon from '@/public/svgIcons/PostitIcon';
+import PostitIcon from '@public/svgIcons/PostitIcon';
 
 const TopPage = () => {
 	const { status } = useSession();

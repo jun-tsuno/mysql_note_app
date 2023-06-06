@@ -1,8 +1,8 @@
 import { Disclosure } from '@headlessui/react';
-import BurgerIcon from '@/public/svgIcons/BurgerIcon';
-import CrossIcon from '@/public/svgIcons/CrossIcon';
-import NoteIcon from '@/public/svgIcons/NoteIcon';
-import FlagIcon from '@/public/svgIcons/FlagIcon';
+import BurgerIcon from '@public/svgIcons/BurgerIcon';
+import CrossIcon from '@public/svgIcons/CrossIcon';
+import NoteIcon from '@public/svgIcons/NoteIcon';
+import FlagIcon from '@public/svgIcons/FlagIcon';
 import Link from 'next/link';
 import AddButton from './AddButton';
 import UserSection from './UserSection';

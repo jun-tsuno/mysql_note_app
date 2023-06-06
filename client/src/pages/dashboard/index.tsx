@@ -6,7 +6,7 @@ import { Note } from '@/types/noteTypes';
 import { useRouter } from 'next/router';
 import Layout from '@/components/Layout';
 import Card from '@/components/Card/Card';
-import EmptyIcon from '@/public/svgIcons/EmptyIcon';
+import EmptyIcon from '@public/svgIcons/EmptyIcon';
 
 const HomePage: NextPage = () => {
 	const { noteCtx, authCtx } = useMContext();

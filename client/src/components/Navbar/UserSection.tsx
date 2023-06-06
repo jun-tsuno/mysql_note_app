@@ -5,7 +5,7 @@ import Image from 'next/image';
 import CustomButton from '../Button/CustomButton';
 import CustomModal from '../Modal/CustomModal';
 import UserModalBody from '../Modal/UserModalBody';
-import userImage from '@/public/image/user-svgrepo-com.png';
+import userImage from '@public/image/user-svgrepo-com.png';
 
 const UserSection = () => {
 	const { authCtx } = useMContext();
